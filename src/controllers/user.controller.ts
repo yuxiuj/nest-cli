@@ -23,10 +23,10 @@ export class UserController {
   createUser(@Body() body: UserInfoDto) {
     return this.userService.createUser(body);
   }
-  @Post('update')
+  @Post('update/:id')
   @UseInterceptors(LoggingInterceptor)
-  updateUser(@Body() body) {
-    return this.userService.updateUser(body);
+  updateUser(@Body() body, @Param() params) {
+    return this.userService.updateUser(params.id, body);
   }
   @Post('delete/:id')
   @UseInterceptors(LoggingInterceptor)

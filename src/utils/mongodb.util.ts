@@ -1,11 +1,11 @@
-import config from '../config/config';
+import config from '../config/env';
 import { join } from 'path';
 
 const options = {
   type: 'mongodb',
   keepConnectionAlive: true,
   entities: [join(__dirname, '../**/**.entity{.ts,.js}')],
-  synchronize: false,
+  synchronize: true,
   logging: ['error'],
   extra: {
     connectionLimit: 3, // 连接池最大连接数量

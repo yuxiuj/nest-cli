@@ -30,14 +30,14 @@ export class UserService {
     return await this.repository.findOne(userInfo);
   }
   // 修改用户信息
-  async updateUser(userInfo) {
-    if (!userInfo.id) {
+  async updateUser(id, userInfo) {
+    if (!id) {
       throw new HttpException('id不存在', HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    return await this.repository.update({id: userInfo.id}, userInfo);
+    return await this.repository.update(id, userInfo);
   }
   // 删除用户
-  async deleteUser(userId: boolean) {
-    // return await this.repository.delete(userId);
+  async deleteUser(userId) {
+    return await this.repository.delete(userId);
   }
 }

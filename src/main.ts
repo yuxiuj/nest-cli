@@ -7,34 +7,12 @@ import { HttpExceptionFilter } from './interceptor/http-exception.filter';
 import { AnyExceptionFilter } from './interceptor/any-exception.filter';
 import { ValidationPipe } from './validate/validateRequest';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-// import { CompressionTypes } from '@nestjs/common/interfaces/external/kafka-options.interface';
-// import config from './config/config';
-// import { Transport } from '@nestjs/microservices';
 
 const LISTEN_PORT = 3111;
-// const kafkaOptions = merge({
-//   name: 'KAFKA_CLIENT',
-//   consumer: {
-//     groupId: 'ice-borne',
-//   },
-//   send: {
-//     compression: CompressionTypes.Snappy,
-//   },
-//   // producer存在问题
-//   producer: {
-//     maxInFlightRequests: 5,
-//     // true时当对应topic不存在会自动在kafka上创建topic
-//     allowAutoTopicCreation: false,
-//   },
-// }, config.kafka);
 
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
   app.setGlobalPrefix('api/v1');
-  // app.connectMicroservice({
-  //   transport: Transport.KAFKA,
-  //   options: kafkaOptions,
-  // });
   app.startAllMicroservices();
   app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
