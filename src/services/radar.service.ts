@@ -1,12 +1,12 @@
 import { HttpService, Injectable, Logger, Scope } from '@nestjs/common';
 // 替换为redisClient？
-import { getRedis } from '../../utils/getRedis';
+import { getRedis } from '../utils/getRedis';
 import * as crypto from 'crypto';
 import * as qs from 'querystring';
 import { RedisClient } from 'redis';
-import config from '../../config/config';
+import config from '../config/config';
 import { omit, pick } from 'lodash';
-import { API_GET_TOKEN, API_REFRESH_TOKEN, TOKEN_EXPIRE_CODE, DAILY_RADAR_URL } from './constans';
+import { API_GET_TOKEN, API_REFRESH_TOKEN, TOKEN_EXPIRE_CODE, DAILY_RADAR_URL } from '../modules/radar/constans';
 
 // 构造测试用当前时间
 // Reflect.defineProperty(Date, 'now', { value: () => 1575337387932 });

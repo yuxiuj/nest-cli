@@ -1,5 +1,5 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { RadarService } from './radar.service';
+import { RadarService } from '../../services/radar.service';
 
 @Module({
   imports: [

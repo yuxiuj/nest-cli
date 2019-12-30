@@ -1,5 +1,5 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { AtopService } from './atop.service';
+import { AtopService } from '../../services/atop.service';
 
 @Module({
   imports: [HttpModule],

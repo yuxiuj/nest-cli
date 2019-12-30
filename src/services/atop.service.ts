@@ -1,5 +1,5 @@
 import { Injectable, Logger, Scope, Global } from '@nestjs/common';
-import { configValue } from '../configModule/config-value.decorator';
+import { configValue } from '../modules/configModule/config-value.decorator';
 
 @Global()
 @Injectable({ scope: Scope.REQUEST })
