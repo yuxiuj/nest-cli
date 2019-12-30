@@ -5,11 +5,11 @@ import * as cookieParser from 'cookie-parser';
 import { ResponseInterceptor } from './interceptor/response.interceptor';
 import { HttpExceptionFilter } from './interceptor/http-exception.filter';
 import { AnyExceptionFilter } from './interceptor/any-exception.filter';
-import { Transport } from '@nestjs/microservices';
+import { ValidationPipe } from './validate/validateRequest';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { merge } from 'lodash';
-import { CompressionTypes } from '@nestjs/common/interfaces/external/kafka-options.interface';
-import config from './config/config';
+// import { CompressionTypes } from '@nestjs/common/interfaces/external/kafka-options.interface';
+// import config from './config/config';
+// import { Transport } from '@nestjs/microservices';
 
 const LISTEN_PORT = 3111;
 // const kafkaOptions = merge({
@@ -30,11 +30,13 @@ const LISTEN_PORT = 3111;
 
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
+  app.setGlobalPrefix('api/v1');
   // app.connectMicroservice({
   //   transport: Transport.KAFKA,
   //   options: kafkaOptions,
   // });
   app.startAllMicroservices();
+  app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.use(cookieParser());
   // http异常拦截 包装响应格式

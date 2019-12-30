@@ -2,14 +2,13 @@ import {
   Controller,
   Get,
   UseInterceptors,
-  Query,
   Body,
   Param,
   Post,
-  Req,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { LoggingInterceptor } from '../interceptor/logging.interceptor';
+import { UserInfoDto } from './dto/user.dto';
 
 @Controller('user')
 export class UserController {
@@ -21,17 +20,17 @@ export class UserController {
   }
   @Post('create')
   @UseInterceptors(LoggingInterceptor)
-  createUser(@Body() body) {
-    this.userService.createUser(body);
+  createUser(@Body() body: UserInfoDto) {
+    return this.userService.createUser(body);
   }
   @Post('update')
   @UseInterceptors(LoggingInterceptor)
   updateUser(@Body() body) {
-    this.userService.updateUser(body);
+    return this.userService.updateUser(body);
   }
   @Post('delete/:id')
   @UseInterceptors(LoggingInterceptor)
   deleteUser(@Param() params) {
-    this.userService.deleteUser(params.id);
+    return this.userService.deleteUser(params.id);
   }
 }

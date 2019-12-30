@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../db/user.entity';
+import { User } from '../db/entities/user.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
@@ -37,7 +37,7 @@ export class UserService {
     return await this.repository.update({id: userInfo.id}, userInfo);
   }
   // 删除用户
-  async deleteUser(userId) {
-    return await this.repository.delete(userId);
+  async deleteUser(userId: boolean) {
+    // return await this.repository.delete(userId);
   }
 }
