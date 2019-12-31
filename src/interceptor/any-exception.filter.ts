@@ -15,7 +15,7 @@ export class AnyExceptionFilter implements ExceptionFilter {
     response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       errorMsg: exception.message,
-      // stack: exception.stack,
+      stack: exception.stack,
       timestamp: new Date().toISOString(),
       path: request.url,
     });
