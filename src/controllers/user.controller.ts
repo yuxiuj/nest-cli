@@ -12,7 +12,9 @@ import {
 import { UserService } from '../services/user.service';
 import { LoggingInterceptor } from '../interceptor/logging.interceptor';
 import { UserInfoDto } from './dto/user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User Api')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}

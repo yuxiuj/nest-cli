@@ -13,13 +13,13 @@ export class User {
   @Column()
   lastName: string;
 
-  // @Exclude()
+  @Exclude()
   @CreateDateColumn({
     comment: '创建时间',
   })
   createTime: number;
 
-  // @Exclude()
+  @Exclude()
   @UpdateDateColumn({
     comment: '更新时间',
   })

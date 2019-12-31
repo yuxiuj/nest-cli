@@ -7,12 +7,27 @@ import { HttpExceptionFilter } from './interceptor/http-exception.filter';
 import { AnyExceptionFilter } from './interceptor/any-exception.filter';
 import { ValidationPipe } from './validate/request.validate';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-const LISTEN_PORT = 3111;
+const LISTEN_PORT = 8000;
+const API_PREFIX = 'api/v1';
+
+// 配置 Swagger
+function initSwagger(app) {
+  const swaggerOptions = new DocumentBuilder()
+    .setTitle('API Documents')
+    .setDescription('API Documents')
+    .setBasePath(API_PREFIX)
+    .setVersion('0.0.1')
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerOptions);
+  SwaggerModule.setup('docs', app, document);
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
-  app.setGlobalPrefix('api/v1'); // 设置请求前缀
+  app.setGlobalPrefix(API_PREFIX); // 设置请求前缀
+  initSwagger(app);
   app.startAllMicroservices();
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.use(cookieParser());

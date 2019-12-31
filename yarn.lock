@@ -466,6 +466,14 @@
     fastify-formbody "3.1.0"
     path-to-regexp "3.1.0"
 
+"@nestjs/swagger@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.npm.taobao.org/@nestjs/swagger/download/@nestjs/swagger-4.1.2.tgz#6a2b6e16431bb8b42d2948dd6ea0a95d7555e138"
+  integrity sha1-aituFkMbuLQtKUjdbqCpXXVV4Tg=
+  dependencies:
+    lodash "4.17.15"
+    path-to-regexp "3.2.0"
+
 "@nestjs/terminus@^6.5.1":
   version "6.5.2"
   resolved "https://registry.npm.taobao.org/@nestjs/terminus/download/@nestjs/terminus-6.5.2.tgz#d641b565fece09c9e07448f6bcc0699a8e1b28e5"
@@ -6899,6 +6907,11 @@ path-to-regexp@3.1.0, path-to-regexp@^3.0.0:
   resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-3.1.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpath-to-regexp%2Fdownload%2Fpath-to-regexp-3.1.0.tgz#f45a9cc4dc6331ae8f131e0ce4fde8607f802367"
   integrity sha1-9FqcxNxjMa6PEx4M5P3oYH+AI2c=
 
+path-to-regexp@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-3.2.0.tgz#fa7877ecbc495c601907562222453c43cc204a5f"
+  integrity sha1-+nh37LxJXGAZB1YiIkU8Q8wgSl8=
+
 path-type@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/path-type/download/path-type-3.0.0.tgz#cef31dc8e0a1a3bb0d105c0cd97cf3bf47f4e36f"
@@ -8292,6 +8305,18 @@ swagger-fluent@^4.0.0:
   dependencies:
     merge-deep "^3.0.2"
     request "^2.88.0"
+
+swagger-ui-dist@^3.18.1:
+  version "3.24.3"
+  resolved "https://registry.npm.taobao.org/swagger-ui-dist/download/swagger-ui-dist-3.24.3.tgz#99754d11b0ddd314a1a50db850acb415e4b0a0c6"
+  integrity sha1-mXVNEbDd0xShpQ24UKy0FeSwoMY=
+
+swagger-ui-express@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.npm.taobao.org/swagger-ui-express/download/swagger-ui-express-4.1.2.tgz#fa4ca5337bce207c760a0b9340348159ebf8ffa4"
+  integrity sha1-+kylM3vOIHx2CguTQDSBWev4/6Q=
+  dependencies:
+    swagger-ui-dist "^3.18.1"
 
 symbol-observable@^1.0.4, symbol-observable@^1.1.0:
   version "1.2.0"
