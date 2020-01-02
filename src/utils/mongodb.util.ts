@@ -12,7 +12,6 @@ const options = {
   },
   // 配置项中配置优先级较高
   ...config.mongodb,
-
 };
 
 export function getOptions() {

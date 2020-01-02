@@ -8,7 +8,7 @@ import { AnyExceptionFilter } from './interceptor/any-exception.filter';
 import { ValidationPipe } from './validate/request.validate';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
-const LISTEN_PORT = 3111;
+const LISTEN_PORT = 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
