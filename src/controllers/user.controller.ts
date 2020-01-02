@@ -1,43 +1,63 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Body,
-  Param,
-  UseInterceptors,
-  ClassSerializerInterceptor,
-} from '@nestjs/common';
+// import {
+//   Controller,
+//   Get,
+//   Post,
+//   Put,
+//   Delete,
+//   Body,
+//   Param,
+//   UseInterceptors,
+//   ClassSerializerInterceptor,
+// } from '@nestjs/common';
+// import { UserService } from '../services/user.service';
+// import { LoggingInterceptor } from '../interceptor/logging.interceptor';
+// import { UserInfoDto } from '../dto/user.dto';
+
+// @Controller('user')
+// export class UserController {
+//   constructor(private readonly userService: UserService) {}
+//   // 获取所有用户
+//   @Get('get')
+//   @UseInterceptors(LoggingInterceptor, ClassSerializerInterceptor)
+//   async getUsers() {
+//     return this.userService.getUsers();
+//   }
+//   // 新增用户
+//   @Post('create')
+//   @UseInterceptors(LoggingInterceptor)
+//   createUser(@Body() body: UserInfoDto) {
+//     return this.userService.createUser(body);
+//   }
+//   // 更新用户
+//   @Put('update/:id')
+//   @UseInterceptors(LoggingInterceptor)
+//   updateUser(@Body() body, @Param() params) {
+//     return this.userService.updateUser(params.id, body);
+//   }
+//   // 删除用户
+//   @Delete('delete/:id')
+//   @UseInterceptors(LoggingInterceptor)
+//   deleteUser(@Param() params) {
+//     return this.userService.deleteUser(params.id);
+//   }
+// }
+
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { UserDto } from '../dto/user.dto';
 import { UserService } from '../services/user.service';
-import { LoggingInterceptor } from '../interceptor/logging.interceptor';
-import { UserInfoDto } from './dto/user.dto';
+import { IUser } from '../interfaces/user.interface';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
-  // 获取所有用户
-  @Get('get')
-  @UseInterceptors(LoggingInterceptor, ClassSerializerInterceptor)
-  async getUsers() {
-    return this.userService.getUsers();
-  }
-  // 新增用户
+  constructor(private readonly catsService: UserService) {}
+
   @Post('create')
-  @UseInterceptors(LoggingInterceptor)
-  createUser(@Body() body: UserInfoDto) {
-    return this.userService.createUser(body);
+  async create(@Body() userDto: UserDto) {
+    this.catsService.create(userDto);
   }
-  // 更新用户
-  @Put('update/:id')
-  @UseInterceptors(LoggingInterceptor)
-  updateUser(@Body() body, @Param() params) {
-    return this.userService.updateUser(params.id, body);
-  }
-  // 删除用户
-  @Delete('delete/:id')
-  @UseInterceptors(LoggingInterceptor)
-  deleteUser(@Param() params) {
-    return this.userService.deleteUser(params.id);
+
+  @Get('')
+  async findAll(): Promise<IUser[]> {
+    return this.catsService.get();
   }
 }
