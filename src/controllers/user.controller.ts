@@ -14,16 +14,16 @@ export class UserController {
 
   @Post('create')
   async create(@Body() createUserDto: CreateUserDto) {
-    this.catsService.create(createUserDto);
+    return this.catsService.create(createUserDto);
   }
 
   @Put('update/:id')
   async update(@Param('id') id: string, @Body() createUserDto: CreateUserDto) {
-    this.catsService.update(id, createUserDto);
+    return this.catsService.update(id, createUserDto);
   }
 
   @Delete('delete/:id')
   async delete(@Param('id') id: string) {
-    this.catsService.delete(id);
+    return this.catsService.delete(id);
   }
 }
