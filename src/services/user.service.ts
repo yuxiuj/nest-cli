@@ -10,6 +10,7 @@ export class UserService {
   constructor(@InjectModel(MODEL.USER_MODEL) private readonly userModel: Model<IUser>) {}
 
   async get(): Promise<IUser[]> {
+    // throw new HttpException('获取用户失败', HttpStatus.INTERNAL_SERVER_ERROR);
     return await this.userModel.find();
   }
 
@@ -17,19 +18,19 @@ export class UserService {
     return await this.userModel.find(userInfo);
   }
 
-  async create(createUserDto: CreateUserDto): Promise<IUser> {
+  async create(createUserDto: CreateUserDto) {
     const findUsers = await this.isExistUser(createUserDto);
     if (Array.isArray(findUsers) && findUsers.length > 0) {
       throw new HttpException('用户已经注册', HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    return await this.userModel.create(createUserDto);
+    await this.userModel.create(createUserDto);
   }
 
-  async update(id: string, createUserDto: CreateUserDto): Promise<IUser> {
-    return await this.userModel.update({_id: id}, {$set: createUserDto});
+  async update(id: string, createUserDto: CreateUserDto) {
+    await this.userModel.updateOne({_id: id}, {$set: createUserDto});
   }
 
-  async delete(id: string): Promise<IUser> {
-    return await this.userModel.remove({_id: id});
+  async delete(id: string) {
+    await this.userModel.deleteOne({_id: id});
   }
 }

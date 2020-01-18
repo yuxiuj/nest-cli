@@ -1,32 +1,144 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## git操作接口
 
-## Description
+```js
+// 我本地服务 172.16.110.223:9090 调用前和我说下 我起下服务
+// 目前本地调试使用http, 上线后使用https
+// base_url
+http://${base_host}:${base_port}/git/v1
+```
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+#### 创建仓库(创建项目)
+```js
+${base_url}/project/add
+
+eg:
+
+request.post({
+  url:'${base_url}/project/add',
+  headers: {
+    cookie: "SSO_USER_TOKEN=p_d3c9c91e8d822fe2238f6af7326xxc96"
+  },
+  body:JSON.stringify({
+    projectName: "test-create-repo",
+    templateId: 3037 // 此id 我这边暂时会写死，如果以后有多套模板，可以开放
+  })
+},(err, res, body) => {
+  if (err) {
+    throw err
+  }
+  console.log(body)
+})
+
+```
+
+#### 新增文件
+```js
+${base_url}/file/add
+
+eg:
+
+const fileinfo = `## this is a readme file generate by api
+- [ ] todo1 
+- [ ] todo2 
+- [ ] todo3 
+- [x] done1
+- [x] done2
+- [x] done3
+- [x] done4
+`
+let params = JSON.stringify({
+    projectId: 4907, // 上一步创建项目返回的id
+    filename: 'README.md', // 如果要修改 src/views/a.vue 传 src/views/a.vue即可
+    file: fileinfo, // 文件字符串
+    commitMessage: "first commit, modify readme markdown file",
+})
+
+request.post('${base_url}/file',{
+    headers:{
+        "Content-Type": "application/json",
+        cookie: "SSO_USER_TOKEN=p_d3c9c91e8d822fe2238f6axx3261ac96"
+    },
+    body: params
+},(err, res, body) => {
+    assert.equal(err, null)
+    console.log(body)
+})
+```
+
+
+#### 修改文件
+```js
+${base_url}/file/update 
+数据结构与新增文件相同，接口调用使用put方法
+
+eg: 
+
+let params = JSON.stringify({
+    projectId: 4907, // 上一步创建项目返回的id
+    filename: 'README.md', // 如果要修改 src/views/a.vue 传 src/views/a.vue即可
+    file: fileinfo, // 文件字符串
+    commitMessage: 'update file',
+})
+
+request.put('${base_url}/file/update',{
+    headers:{
+        "Content-Type": "application/json",
+        cookie: "SSO_USER_TOKEN=p_d3c9c91e8d822fe2238f6axx3261ac96"
+    },
+    body: params
+},(err, res, body) => {
+    assert.equal(err, null)
+    console.log(body)
+})
+ 
+```  
+#### 拉取单个文件模板
+```js
+${base_url}/file/export
+
+let params = JSON.stringify({
+  projectId: 4907, // 要拉取文件位于哪个仓库
+  filename: '2.vue', // 如果要修改 src/views/a.vue 传 src/views/a.vue即可
+})
+
+request.put('${base_url}/file/export',{
+    headers:{
+        "Content-Type": "application/json",
+        cookie: "SSO_USER_TOKEN=p_d3c9c91e8d822fe2238f6axx3261ac96"
+    },
+    body: params
+},(err, res, body) => {
+    assert.equal(err, null)
+    console.log(body)
+})
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Installation
 
@@ -60,16 +172,3 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
