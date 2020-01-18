@@ -1,6 +1,6 @@
 export default {
   mongodb: {
-    host: 'mongo.fe-base.svc.tuya.local',
+    host: '127.0.0.1',
     port: 27017,
     database: 'bs',
     username: 'bs',
