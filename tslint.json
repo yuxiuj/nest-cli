@@ -4,7 +4,7 @@
     "tslint:recommended"
   ],
   "jsRules": {
-    "no-unused-expression": true
+    "no-unused-expression": false
   },
   "rules": {
     "quotemark": [
@@ -31,7 +31,9 @@
     "object-literal-sort-keys": false,
     "variable-name": {
       "options": "allow-leading-underscore"
-    }
+    },
+    "no-var-requires": false,
+    "no-empty": false
   },
   "rulesDirectory": []
 }

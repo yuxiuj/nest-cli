@@ -3,7 +3,11 @@ export default {
     host: '127.0.0.1',
     port: 27017,
     database: 'bs',
-    // username: 'bs',
-    // password: 'bs1234',
+  },
+  cos: {
+    SecretId: 'your SecretId',
+    SecretKey: 'your SecretKey',
+    Bucket: 'your Bucket',
+    Region: 'your Region',
   },
 };
